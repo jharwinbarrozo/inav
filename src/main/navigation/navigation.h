@@ -132,6 +132,12 @@ typedef enum {
     NOMS_ALL_NAV
 } navOverridesMotorStop_e;
 
+typedef enum {
+    OFF,
+    ON,
+    ON_FW_SPIRAL,
+} navRTHClimbFirst_e;
+
 typedef struct positionEstimationConfig_s {
     uint8_t automatic_mag_declination;
     uint8_t reset_altitude_type; // from nav_reset_type_e
@@ -209,6 +215,8 @@ typedef struct navConfig_s {
         uint8_t  max_bank_angle;                // multicopter max banking angle (deg)
         uint16_t hover_throttle;                // multicopter hover throttle
         uint16_t auto_disarm_delay;             // multicopter safety delay for landing detector
+
+#ifdef USE_MR_BRAKING_MODE
         uint16_t braking_speed_threshold;       // above this speed braking routine might kick in
         uint16_t braking_disengage_speed;       // below this speed braking will be disengaged
         uint16_t braking_timeout;               // Timeout for braking mode
@@ -217,6 +225,8 @@ typedef struct navConfig_s {
         uint16_t braking_boost_speed_threshold; // Above this speed braking boost mode can engage
         uint16_t braking_boost_disengage_speed; // Below this speed braking boost will disengage
         uint8_t  braking_bank_angle;            // Max angle [deg] that MR is allowed duing braking boost phase
+#endif
+
         uint8_t posDecelerationTime;            // Brake time parameter
         uint8_t posResponseExpo;                // Position controller expo (taret vel expo for MC)
         bool slowDownForTurning;             // Slow down during WP missions when changing heading on next waypoint
